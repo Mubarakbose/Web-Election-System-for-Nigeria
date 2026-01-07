@@ -1,0 +1,68 @@
+# Backups
+Backups/
+*.zip
+
+# Vendor (Composer dependencies - should be installed via composer install)
+vendor/
+
+# Environment files
+.env
+.env.local
+*.env
+
+# Database backups
+*.sql
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+Logs/
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Session files
+sessions/
+
+# Upload directories (large files)
+Admin/ContestantsImages/*.jpg
+Admin/ContestantsImages/*.jpeg
+Admin/ContestantsImages/*.png
+Admin/StaffsImages/*.jpg
+Admin/StaffsImages/*.jpeg
+Admin/StaffsImages/*.png
+PollingStaff/VotersImages/*.jpg
+PollingStaff/VotersImages/*.jpeg
+PollingStaff/VotersImages/*.png
+
+# Keep directory structure
+!Admin/ContestantsImages/.gitkeep
+!Admin/StaffsImages/.gitkeep
+!PollingStaff/VotersImages/.gitkeep
+
+# Node modules (if any)
+node_modules/
+
+# PHP
+composer.phar
+composer.lock
+
+# Database connection (contains sensitive info)
+Connections/localhost.php
+Connections/email_config.php

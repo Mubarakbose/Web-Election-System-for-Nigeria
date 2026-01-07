@@ -1,0 +1,94 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+#Container
+{
+	width: 900px;
+	margin-right: auto;
+	margin-left: auto;
+	border-radius: 8px;
+	box-shadow: 0px 4px 10px 0px #000;
+	border: solid thin 2px;
+	padding: 8px;
+	background-color: #FFF;
+	height: 500px;
+	background-image: url(../images/bg_body.png);
+}
+
+#Header
+{
+	width: 280px;
+	background-repeat: no-repeat;
+	height: 90px;
+	background-image: url(../images/logo.png);
+	float: left;
+	margin-top: 20px;
+	margin-left: 30px;
+}
+
+
+/* Admin login box — keep visual styling but avoid fixed widths so it stays responsive */
+#Adminlogin {
+	padding: 3px;
+	color: #F60;
+	background-color: #000;
+	border-radius: 8px;
+	box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.12);
+	margin-top: 1.5rem;
+	box-sizing: border-box;
+	font-family: "Times New Roman", Times, serif;
+}
+/* Normalized container/admin area: ensure auto height and responsive spacing */
+#Adminlogin{ clear:both; display:block; margin:1.5rem auto; padding:0.6rem 1rem; box-sizing:border-box; width:100%; max-width:calc(100% - 2rem); overflow:auto; }
+@media(max-width:480px){ #Adminlogin{ margin-top:0.6rem; padding-top:0.4rem; } }
+
+#boxText
+{
+	color: #FFF;
+	text-align: justify;
+	font-size: 18px;
+}
+
+
+
+.pass
+{
+	margin-bottom: 10px;
+}
+
+
+#flag {
+	float: left;
+	height: 85px;
+	width: 150px;
+	background-position: center;
+	background-image: url(../images/Flag_of_Nigeria.png);
+	background-repeat: no-repeat;
+	border-radius: 8px;
+	margin-left: 400px;
+}
+#txt {
+	padding: 8px;
+	height: auto;
+}
+#UserName {
+	height: 20px;
+	width: 200px;
+	border: 1px solid #F60;
+	padding: 4px;
+	color: #F30;
+}
+
+#Password {
+	height: 20px;
+	width: 200px;
+	border: 1px solid #F60;
+	padding: 4px;
+	color: #F30;
+}
+
+/* Normalized container/admin area: full-width container + constrained admin box */
+#Container{ width:100%; max-width:none; margin:0 0 3rem 0; box-sizing:border-box; text-align:center; background-repeat:no-repeat; background-size:100% 100%; background-position:center top; padding:0 12px; padding-bottom:3rem; }
+#Adminlogin{ clear:both; display:block; margin:1.5rem auto; padding:0.6rem 1rem; box-sizing:border-box; width:100%; max-width:calc(100% - 2rem); overflow:auto; }
+@media(max-width:480px){ #Adminlogin{ margin-top:0.6rem; padding-top:0.4rem; } }

@@ -1,0 +1,742 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image:url(../images/bg-body.jpg);
+  background-attachment:fixed;
+}
+/* UI improvements: base fonts and better mobile contrast */
+/* Use the same sans-serif family as the menu for visual consistency and to avoid Times New Roman */
+html, body { font-family: Arial, Helvetica, sans-serif; }
+body, button, input, select, textarea { font-family: inherit; font-size:16px; }
+
+/* High-specificity Admin-wide override to enforce admin font and avoid per-page overrides */
+/* This is intentionally scoped to the Admin stylesheet file and uses !important to prevent accidental overrides. */
+html, body, #HeadContainer, #Content, .MainContent, form, input, select, textarea, button, h1, h2, h3, h4, h5, h6 {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+#cssmenu > ul > li > a { color: #fff; background: linear-gradient(#464646,#2f2f2f); }
+#cssmenu > ul > li > a:hover { background:#222; color:#fff; }
+#Container{
+  width:100%;
+  max-width:920px;
+  margin:0 auto;
+  border: solid thin 2px;
+  padding:8px;
+  background-color:#FFF;
+  height:auto;
+  box-sizing:border-box;
+}
+
+/* Header: ensure no background image left behind and only #logo shows the logo */
+/* Keep HeadContainer aligned with the main site container so the menu can't overflow */
+#HeadContainer{ width:100%; max-width:920px; margin:0 auto; box-sizing:border-box; padding:0 0 12px 0; position:relative; background-color:#fff; box-shadow:none; }
+#Header{ margin-bottom: 12px; width:100%; max-width:920px; background-repeat:no-repeat; background-image:none !important; height:90px; box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; padding:8px 12px; }
+
+/* Hide any unexpected img tags inside header so only #logo and #flag are shown */
+#Header img { display: none !important; }
+
+/* Ensure our explicit logo/flag are visible */
+#logo{ display:block; }
+#flag{ display:block; }
+
+/* Explicit logo element to avoid background overlap with flag */
+#logo{ width:260px; height:70px; background-image:url(../images/Flag_of_Nigeria.png); background-repeat:no-repeat; background-position:left center; background-size:contain; flex:0 0 auto; }
+
+
+#Menu{ width:100%; max-width:880px; border-radius:5px; margin:0 auto; box-sizing:border-box; display:flex; justify-content:center; position:relative; }
+
+/* New Menu */
+#cssmenu,
+#cssmenu ul,
+#cssmenu li,
+#cssmenu a {
+  border: none;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+#cssmenu {
+  /* header-level menu container: center the menu while allowing an absolute toggle */
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  border:1px solid transparent;
+  border-radius:5px;
+  margin:0;
+  padding:6px 8px;
+  background:transparent;
+  overflow: visible; /* allow dropdowns to overflow without clipping */
+}
+/* keep the visible menu constrained to the header area */
+#cssmenu { max-width:880px; width:100%; box-sizing:border-box; }
+#cssmenu > ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  gap:6px;
+  align-items:center;
+  flex-wrap:nowrap; /* keep items on one line on desktop */
+  /* avoid clipping of dropdowns */
+}
+#cssmenu > ul > li {
+  list-style: none;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+#cssmenu.align-center > ul {
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  float: none;
+  margin-left: -3px;
+}
+#cssmenu.align-center ul ul {
+  text-align: left;
+}
+#cssmenu.align-center > ul > li:first-child > a {
+  border-radius: 0;
+}
+#cssmenu > ul > li > a {
+  outline: none;
+  display: block;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+  font-weight: 700;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  border-right: 1px solid #080808;
+  color: #ffffff;
+  padding: 10px 14px;
+  white-space: nowrap; /* prevent words inside a menu item from splitting */
+}
+#cssmenu > ul > li:first-child > a {
+  border-radius: 5px 0 0 5px;
+}
+#cssmenu > ul > li > a:after {
+  content: "";
+  position: absolute;
+  border-right: 1px solid;
+  top: -1px;
+  bottom: -1px;
+  right: -2px;
+  z-index: 99;
+  border-color: #3c3c3c;
+}
+#cssmenu ul li.has-sub:hover > a:after {
+  top: 0;
+  bottom: 0;
+}
+#cssmenu > ul > li.has-sub > a:before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 6px;
+  border: 5px solid transparent;
+  border-top: 5px solid #ffffff;
+}
+#cssmenu > ul > li.has-sub:hover > a:before {
+  top: 19px;
+}
+#cssmenu > ul > li.has-sub:hover > a {
+  padding-bottom: 14px;
+  z-index: 999;
+  border-color: #3f3f3f;
+}
+#cssmenu ul li.has-sub:hover > ul,
+#cssmenu ul li.has-sub:hover > div {
+  display: block;
+}
+#cssmenu > ul > li.has-sub > a:hover,
+#cssmenu > ul > li.has-sub:hover > a {
+  background: #3f3f3f;
+  border-color: #3f3f3f;
+}
+#cssmenu ul li > ul,
+#cssmenu ul li > div {
+  display: none;
+  width: auto;
+  min-width: 200px; /* allow submenu to expand to fit text */
+  position: absolute;
+  top: 38px;
+  background: #3f3f3f;
+  border-radius: 0 0 5px 5px;
+  z-index: 999;
+  padding: 6px 0;
+}
+
+/* Normalized container/admin area: ensure auto height and responsive spacing */
+#Container{ width:100%; max-width:920px; margin:0 auto; box-sizing:border-box; text-align:center; background-repeat:no-repeat; background-size:100% 100%; background-position:center top; padding:0 12px; padding-bottom:0; height:auto; overflow:visible; }
+#Adminlogin{ clear:both; display:block; margin:1.5rem auto; padding:0.6rem 1rem; box-sizing:border-box; width:100%; max-width:calc(100% - 2rem); overflow:auto; }
+@media(max-width:480px){ #Adminlogin{ margin-top:0.6rem; padding-top:0.4rem; } }
+#cssmenu ul li > ul {
+  width: 200px;
+}
+#cssmenu ul ul ul {
+  position: absolute;
+}
+#cssmenu ul ul li:hover > ul {
+  left: 100%;
+  top: -10px;
+  border-radius: 5px;
+}
+#cssmenu ul li > ul li {
+  display: block;
+  list-style: inside none;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+#cssmenu ul li > ul li a {
+  outline: none;
+  display: block;
+  position: relative;
+  font: 10pt Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 8px 14px;
+  white-space: nowrap; /* prevent submenu labels from splitting into multiple lines */
+}
+#cssmenu,
+#cssmenu ul ul > li:hover > a,
+#cssmenu ul ul li a:hover {
+  background: #3c3c3c;
+  background: -moz-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3c3c3c), color-stop(100%, #222222));
+  background: -webkit-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+  background: -o-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+  background: -ms-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+  background: linear-gradient(top, #3c3c3c 0%, #222222 100%);
+}
+#cssmenu > ul > li > a:hover {
+  background: #080808;
+  color: #ffffff;
+}
+#cssmenu ul ul a:hover {
+  color: #ffffff;
+}
+#cssmenu > ul > li.has-sub > a:hover:before {
+  border-top: 5px solid #ffffff;
+}
+/* New End */
+
+#Content{ width:100%; max-width:920px; margin:0 auto; height:auto; background-color:#FFF; box-sizing:border-box; }
+
+#Info{
+  background-color:#333;
+  padding:8px;
+  float:left;
+  width:862px;
+  border:8px solid rgba(102,102,102,0.95);
+  border-bottom-width:0; /* remove bottom border so footer sits flush */
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
+  font-family:"Comic Sans MS", cursive;
+  font-size:20px;
+  color:#CCC;
+  text-align:left;
+  display:block;
+  border-radius:8px 8px 0 0;
+}
+
+
+#footer{ padding:8px; min-height:60px; width:100%; max-width:920px; margin:0 auto; background-color:#fff; box-shadow:none; border-bottom-left-radius:8px; border-bottom-right-radius:8px; box-sizing:border-box; }
+
+/* Make header, content and footer match responsively on small screens */
+@media (max-width:960px) {
+  #HeadContainer, #Container, #Content, #footer { max-width:100%; padding-left:12px; padding-right:12px; }
+  #logo { max-width:200px; }
+}
+#flag {
+  /* use flex layout instead of float so header children align predictably */
+  height: 85px;
+  width: 150px;
+  background-position: center;
+  background-image: url(../images/Flag_of_Nigeria.png);
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  flex: 0 0 auto;
+}
+#footcont {
+	padding: 0px;
+	height: auto;
+	width: auto;
+	text-align: center;
+}
+#footer{ clear:both; margin-top:0; }
+#AdminHomeHeader {
+	font-family: "Comic Sans MS", cursive;
+	font-size:24px;
+	color:#F63;
+}
+.AdminHead {
+	color: #F63;
+	text-align:center;
+}
+.AdminHead2 {
+	font-size: 14px;
+}
+
+/* Responsive admin home tiles and hero (appended for AdminHome.php) */
+.admin-hero{ display:flex; gap:12px; align-items:center; justify-content:space-between; background:#fff; padding:12px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.06); color:#222; }
+.admin-hero .hero-text{ flex:1; text-align:left; }
+.admin-hero .hero-text .AdminHead{ font-size:1.25rem; margin:0; color:#f60; font-family: Arial, Helvetica, sans-serif; }
+.admin-hero .hero-image img{ max-width:140px; height:auto; display:block; }
+
+.tiles-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin:14px auto 0; width:100%; }
+.tile{ display:flex; flex-direction:column; align-items:center; text-decoration:none; background:#fff; padding:12px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.06); color:#222; border:1px solid rgba(0,0,0,0.04); }
+.tile img{ max-width:120px; height:auto; margin-bottom:8px; }
+.tile .tile-title{ font-weight:700; color:#333; text-align:center; }
+.tile:hover{ transform:translateY(-4px); transition:transform .18s ease; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+
+/* Make #Info layout responsive */
+#Info{ width:100%; max-width:920px; margin:12px auto 0; float:none; box-sizing:border-box; border-width:12px; }
+
+@media(max-width:600px){
+  .admin-hero{ flex-direction:column; align-items:flex-start; }
+  .admin-hero .hero-image img{ max-width:100px; }
+  #Container{ padding:12px; }
+}
+
+/* Mobile tuning: tighter paddings, adjusted fonts */
+@media(max-width:720px){
+  body, button, input, select, textarea { font-size:15px; }
+  .AdminHead { font-size:1.05rem; }
+  .AdminHead2 { font-size:0.95rem; }
+  .detail-item { padding:10px; }
+  .detail-item .detail-body { font-size:0.95rem; }
+  .tiles-grid { gap:10px; }
+  .tile .tile-title { font-size:0.95rem; }
+  #cssmenu.open > ul { left:8px; right:8px; top:48px; }
+}
+
+@media(max-width:420px){
+  body, button, input, select, textarea { font-size:14px; }
+  .detail-item { padding:8px; }
+  .admin-hero { padding:10px; }
+}
+
+/* Mobile menu (hamburger) */
+#menu-toggle{ display:none; width:44px; height:40px; background:#3c3c3c; border-radius:4px; cursor:pointer; padding:6px; box-sizing:border-box; z-index:2500; }
+#menu-toggle .bar{ display:block; width:22px; height:3px; background:#fff; border-radius:2px; }
+/* ensure toggle is above other elements when open */
+#menu-toggle{ z-index:2500; }
+
+@media(max-width:800px){
+  /* hide desktop list, show toggle */
+  #cssmenu > ul{ display:none; }
+  #menu-toggle{ display:flex; flex-direction:column; gap:4px; position:absolute; left:12px; top:50%; transform:translateY(-50%); }
+  #cssmenu.open > ul{ display:block; position:absolute; left:8px; right:8px; top:calc(100% + 6px); background:#3c3c3c; padding:8px; border-radius:6px; z-index:2000; }
+  #cssmenu.open > ul > li{ display:block; margin:0; }
+  #cssmenu.open > ul > li > a{ display:block; padding:10px 12px; color:#fff !important; border:none; background:transparent; text-align:left; }
+  #cssmenu > ul > li > a{ color:#fff; }
+}
+
+/* keep desktop colors stable on small screens for submenus too */
+#cssmenu ul li.has-sub > a, #cssmenu ul li > a{ color:#fff; }
+
+/* Detail-list style for admin listing pages */
+.detail-list{ display:flex; flex-direction:column; gap:12px; max-width:880px; margin:12px auto; }
+.detail-item{ display:flex; flex-direction:row; gap:12px; align-items:flex-start; background:#222; color:#fff; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); box-sizing:border-box; }
+.detail-item:hover{ transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,0.25); transition:all .18s ease; }
+.detail-item .meta{ min-width:80px; font-weight:700; color:#f60; }
+.detail-item .main{ flex:1; }
+.detail-item .actions{ display:flex; gap:8px; align-items:center; }
+.detail-item .actions a{ background:transparent; color:#fff; padding:6px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06); text-decoration:none; }
+.detail-item summary{ cursor:pointer; }
+.detail-body{ margin-top:8px; color:#ddd; font-size:0.95rem; }
+
+@media(max-width:720px){
+  .detail-item{ flex-direction:column; }
+  .detail-item .meta{ min-width:0; }
+}
+
+/* Remove legacy reserved margin so menu stays centered inside the header container */
+@media(min-width:920px){
+  #cssmenu{ margin-right:0; }
+}
+
+/* Slight compression before collapse to reduce chance of wrapping */
+@media(max-width:1100px){
+  #cssmenu > ul > li > a{ padding:8px 10px; font-size:13px; }
+  #cssmenu { gap:6px; }
+}
+
+/* Ensure dropdown opens slightly below header when present */
+#cssmenu.open > ul { top: calc(100% + 12px); }
+
+/* Responsive forms: make legacy table-forms usable on small screens */
+.responsive-form table { width:100%; max-width:880px; margin:0 auto; border-collapse:collapse; }
+.responsive-form td { vertical-align:top; padding:6px 8px; }
+.responsive-form td:first-child { width:35%; padding-right:12px; font-weight:700; color:#333; }
+.responsive-form input[type="text"],.responsive-form input[type="tel"], .responsive-form select, .responsive-form input[type="file"], .responsive-form input[type="date"], .responsive-form input[type="password"], .responsive-form textarea { width:100%; padding:8px; box-sizing:border-box; border:1px solid #ccc; border-radius:4px; }
+.responsive-form input[type="submit"], .responsive-form input[type="reset"] { padding:8px 12px; border-radius:6px; }
+@media(max-width:720px){
+  .responsive-form td, .responsive-form table, .responsive-form tr { display:block; width:100%; }
+  .responsive-form td:first-child { display:block; width:100%; padding-bottom:6px; }
+}
+
+.form-row { display:flex; gap:16px; align-items:flex-start; margin-bottom:10px; }
+.form-label { width:28%; min-width:120px; font-weight:700; color:#333; }
+.form-control { flex:1; }
+.form-actions { display:flex; gap:10px; justify-content:flex-start; padding-top:6px; }
+@media(max-width:720px){
+  .form-row { flex-direction:column; }
+  .form-label { width:100%; min-width:0; }
+}
+
+/* Ensure form controls are responsive by default */
+form input[type="text"], form input[type="password"], form input[type="date"], form input[type="tel"], form input[type="file"], form select, form textarea,
+.form-control input, .form-control select, .form-control textarea {
+  width: 100% !important;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Standardize form/input appearance across admin pages (match AddContestant style)
+   - consistent padding, border, radius, font-size and focus state
+*/
+input[type="text"], input[type="password"], input[type="date"], input[type="file"], input[type="tel"], textarea, select,
+.form-control input, .form-control select, .form-control textarea {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #222;
+}
+
+/* Make file inputs and selects display consistently */
+input[type="file"] { padding: 8px; }
+select { -webkit-appearance: none; -moz-appearance: none; appearance: none; background-position: right 12px center; background-repeat: no-repeat; }
+
+/* Buttons */
+.btn { font-family: inherit; font-size: 16px; font-weight:600; padding:10px 14px; }
+
+/* Focus and accessibility */
+input:focus, textarea:focus, select:focus, .form-control input:focus { outline: none; box-shadow: 0 0 0 4px rgba(102,153,255,0.12); border-color:#66a3ff; }
+
+/* Table-based legacy forms: ensure inputs inside tables inherit the same look */
+table input[type="text"], input[type="tel"],table select, table textarea { font-family: inherit; font-size: 16px; padding:8px; border-radius:6px; }
+
+/* Labels */
+.form-label, label { font-family: inherit; font-size: 15px; color: #333; }
+
+/* Ensure headings and important text use the admin sans-serif */
+h1,h2,h3,h4,h5,h6 { font-family: inherit; }
+
+/* Fieldset and legend styling for grouped controls */
+fieldset { border: 1px solid rgba(0,0,0,0.06); padding: 12px; border-radius: 6px; margin-bottom: 16px; }
+legend { padding: 0 8px; font-weight:700; }
+
+/* Simple pagination styling — responsive and high-contrast */
+.pagination { display:flex; gap:8px; justify-content:center; align-items:center; flex-wrap:wrap; margin: 12px 0; padding: 6px 0; }
+.pagination a, .pagination span, .pagination .current { text-decoration:none; padding:8px 12px; border-radius:6px; display:inline-block; }
+/* Force pagination link color to white to override page-specific inline styles */
+.pagination a { color: #ffffff !important; background:#3c3c3c; margin:0; }
+.pagination a + a { margin-left: 8px; }
+.pagination a:hover, .pagination a:focus { background:#2e2e2e; text-decoration:none; color:#fff !important; }
+.pagination .current { background:#f60; color:#fff; font-weight:700; }
+
+/* Small-screen: make pagination items stack and grow to a comfortable tap target */
+@media(max-width:480px){
+  .pagination { gap:6px; padding:8px; }
+  .pagination a, .pagination span, .pagination .current { flex: 1 1 100%; min-width:0; text-align:center; }
+}
+
+/* Button utility for forms and actions */
+.btn, .form-actions input[type="submit"], .form-actions button, .form-actions .btn {
+  background: #3c3c3c;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 8px; /* horizontal spacing between buttons */
+  margin-bottom: 8px; /* vertical spacing when stacked */
+}
+.btn:hover, .form-actions input[type="submit"]:hover, .form-actions button:hover { background:#2e2e2e; }
+
+/* Ensure action groups can wrap on small screens */
+.form-actions { flex-wrap: wrap; }
+
+/* Accessibility: focus state */
+.btn:focus, .pagination a:focus { outline: 3px solid rgba(102,153,255,0.2); outline-offset: 2px; }
+
+/* Input styling for readability */
+input[type="text"], input[type="password"], input[type="date"], input[type="file"], input[type="tel"], textarea, select { 
+  font-size: 16px; 
+  line-height: 1.4; 
+  padding: 10px 12px; 
+  height: auto; 
+  min-height: 44px; 
+  border: 1px solid #cfcfcf; 
+  border-radius: 6px; 
+  box-sizing: border-box; 
+}
+select { padding-right: 32px; }
+textarea { min-height: 96px; }
+::placeholder { color: #7a7a7a; opacity: 1; }
+input:focus, textarea:focus, select:focus { outline: none; box-shadow: 0 0 0 3px rgba(102,153,255,0.15); border-color:#66a3ff; }
+
+/* Validation visual helpers */
+.invalid{ border-color:#e05a5a !important; box-shadow: none !important; }
+.error-message{ color:#e05a5a; font-size:0.9rem; margin-top:6px; display:none; }
+.has-error .error-message{ display:block; }
+
+/* Voter profile modal (used by ListVoters.php) */
+#vprofile-modal { display: none; }
+#vprofile-modal .vp-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 9998; }
+/* Modal panel — larger, more readable by default */
+#vprofile-modal .vp-panel { position: fixed; left: 50%; top: 50%; transform: translate(-50%,-50%); background: #fff; z-index: 99999; max-width: 1100px; width: 90%; box-shadow: 0 20px 54px rgba(0,0,0,.45); padding: 28px; border-radius: 10px; max-height: 92vh; overflow: auto; }
+#vprofile-modal .vp-close { position: absolute; right: 14px; top: 12px; border: 0; background: transparent; font-size: 30px; line-height: 1; cursor: pointer; color:#333; }
+#vprofile-modal .vp-body { max-height: 86vh; overflow: auto; padding-top: 8px; }
+#vprofile-modal .vp-panel img { max-width: 320px; width:100%; height: auto; border-radius: 10px; display:block; }
+#vprofile-modal .vp-panel .vphoto { flex: 0 0 auto; }
+#vprofile-modal .vp-panel .vinfo { flex: 1 1 auto; font-size: 20px; line-height: 1.5; color:#222; }
+#vprofile-modal .vp-panel .vinfo h3 { margin: 0 0 12px 0; font-size: 30px; }
+/* Ensure modal content stacks on small screens */
+@media (max-width:920px) {
+  #vprofile-modal .vp-panel { width: 96%; padding:20px; }
+  #vprofile-modal .vp-panel img { max-width:260px; }
+  #vprofile-modal .vp-panel .vinfo h3 { font-size: 24px; }
+  #vprofile-modal .vp-panel .vinfo { font-size:18px; }
+}
+@media (max-width:480px) {
+  #vprofile-modal .vp-panel { padding:16px; }
+  #vprofile-modal .vp-panel img { max-width:180px; margin:0 auto 12px; }
+  #vprofile-modal .vp-panel .vinfo h3 { font-size:20px; }
+  #vprofile-modal .vp-panel .vinfo { font-size:16px; }
+}
+
+/* Image helper classes used when inline styles were removed */
+.vphoto-img, .contestant-thumb { max-width: 100%; width: 180px; height: auto; border-radius: 6px; display:block; }
+.vphoto-img { max-width: 140px; }
+.contestant-thumb { max-width: 80px; }
+
+/* Prevent background scroll when modal is open */
+.modal-open, .modal-open body, .modal-open html { overflow: hidden !important; height: 100%; }
+@media (max-width:720px) {
+  #vprofile-modal .vp-panel img { max-width: 180px; }
+  #vprofile-modal .vp-panel { font-size: 16px; }
+  #vprofile-modal .vp-panel .vinfo h3 { font-size: 20px; }
+}
+
+/* Global flash / inline message styles */
+#global-flash { max-width:920px; margin:12px auto; position:relative; padding:0 12px; box-sizing:border-box; z-index:3000; }
+#global-flash .flash-item { padding:16px 18px; border-radius:8px; margin-bottom:12px; color:#fff; box-shadow:0 6px 18px rgba(0,0,0,0.12); min-height:56px; display:flex; align-items:center; }
+#global-flash .flash-item.flash-info { background:#3c3c3c; }
+#global-flash .flash-item.flash-success { background:#28a745; }
+#global-flash .flash-item.flash-error { background:#e05a5a; }
+#global-flash .flash-item.flash-warning { background:#ff9800; }
+
+/* flash item internals and dismiss button */
+#global-flash .flash-item { position: relative; padding-right: 56px; }
+#global-flash .flash-item .flash-text { display: block; font-size: 16px; line-height: 1.35; font-weight: 600; color: #ffffff; }
+#global-flash .flash-close { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: transparent; border: 0; color: rgba(255,255,255,0.95); font-size: 22px; line-height: 1; cursor: pointer; padding: 8px; border-radius: 4px; }
+#global-flash .flash-close:focus { outline: 3px solid rgba(255,255,255,0.12); }
+
+/* When flash appears inside forms, make it fit nicely and not overlap form controls */
+#global-flash { width: 100%; }
+#global-flash .flash-item { display: block; width: 100%; box-sizing: border-box; margin-bottom: 12px; }
+#global-flash .flash-item .flash-text { padding-right: 32px; }
+
+@media(max-width:720px){ #global-flash { padding:0 8px; } }
+/* ====================================================================
+   Merged page-specific rules appended from:
+   - AddContStyle.css
+   - AddPSStyle.css
+   - AddPUStyle.css
+   - MngPStaff.css
+   - NewsStyle.css
+
+   Notes:
+   - I removed `@import` lines and any `font-family` declarations that set
+     Times New Roman / Georgia so the admin-wide sans-serif remains the
+     canonical font from this file.
+   - Only non-conflicting/needed page-specific ID selectors and image
+     helpers were consolidated here to keep a single source of truth.
+   - If you'd like stricter per-page widths restored, we can move them
+     under page-scoped selectors, but responsive defaults are preferred.
+   ==================================================================== */
+
+/* Right-side image helpers used by several Add/List pages */
+#RightImageAddCon, #RightImageAddPU, #RightImageAddPS, #RightImageListPU, #RightImageListCon, #RightImagePSS {
+  float: right;
+  width: 160px;
+  margin-left: 10px;
+  margin-right: 5px;
+  margin-top: 5px;
+  display: block;
+  box-sizing: border-box;
+  max-width: 40%;
+}
+
+/* Consolidated file-input and small-control sizing used across pages */
+#Image, input[type="file"] {
+  height: 30px;
+  width: 100%;
+  max-width: 320px;
+  box-sizing: border-box;
+  border-color: #666;
+}
+
+/* Page-specific form field ID fallbacks (safe, font-family removed) */
+#FirstName, #LastName, #OtherName, #BirthDate, #PhoneNumber, #UserName, #Password, #ConfirmPassword, #LGA, #ZipCode, #State, #Gender, #UserID, #UnitID, #StaffID {
+  height: 30px;
+  width: 100%;
+  max-width: 320px;
+  padding: 6px 8px;
+  color: #222;
+  font-size: 16px;
+  border: 1px solid #cfcfcf; /* unified border */
+  text-transform: capitalize;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+/* Slightly larger fields used for news inputs */
+#NewsTittle { max-width: 450px; height: 36px; }
+#NewsBody { min-height: 120px; width: 100%; max-width: 680px; }
+
+/* Result mode select sizing */
+#ResultMode { max-width: 320px; height: 36px; }
+
+/* Page content body fallback (keeps capitalization and max width, font-family removed) */
+#ContentBody { text-transform: capitalize; font-size: 14px; margin: 0 auto; width: 100%; max-width: 674px; box-sizing: border-box; padding-top: 10px; }
+
+/* Right-image background helper where pages previously referenced background-image; use contained image sizing via CSS instead */
+#RightImageListCon, #RightImageListPU { background-size: contain; background-repeat: no-repeat; background-position: center; }
+
+/* News and admin footer helpers (kept minimal to avoid reintroducing boxed layout) */
+#innerfooter, #footcont { text-align: center; }
+
+/* Small-screen tuning for the added helpers */
+@media (max-width: 720px) {
+  #RightImageAddCon, #RightImageAddPU, #RightImageAddPS, #RightImageListPU, #RightImageListCon, #RightImagePSS { width: 120px; margin: 0 0 12px 0; float:none; }
+  #NewsTittle { max-width: 100%; }
+  #NewsBody { max-width: 100%; }
+}
+
+/* ====================================================================
+   Appended unique selectors from page-specific styles (cleaned):
+   - AddContStyle.css
+   - AddPSStyle.css
+   - AddPUStyle.css
+   - MngPStaff.css
+   - NewsStyle.css
+   (duplicate/overlapping rules may exist; project backup assumed.)
+  ==================================================================== */
+
+/* --- AddContStyle / AddPSStyle / AddPUStyle helpers --- */
+/* Container sizing fallbacks used by older page styles */
+#Container { max-width: 920px; width: 100%; }
+
+/* Header background helpers (logo already handled) */
+#Header { background-size: contain; background-repeat: no-repeat; }
+
+/* Right image specific backgrounds referenced by legacy CSS */
+#RightImageAddPU { background-image: url('../images/unite.png'); background-position: 59% 69%; }
+#RightImageListCon { background-image: url('../images/unite.png'); background-position: 14% 2%; }
+
+/* Footer adjustments kept from page styles */
+#footer { box-shadow: none; padding-top: 8px; }
+
+/* Ensure old menu float rules don't interfere with new flex menu on wide screens */
+#cssmenu > ul > li { float: none; display: inline-block; }
+
+/* --- MngPStaff and News helpers --- */
+/* News small field sizes preserved */
+#NewsTittle { width: 100%; max-width: 450px; }
+#NewsBody { width: 100%; max-width: 680px; min-height: 120px; }
+
+/* Staff image helper */
+#RightImagePSS { background-size: contain; background-repeat: no-repeat; }
+
+/* Content body consistent defaults */
+#Content { width: 100%; max-width: 920px; }
+
+/* Legacy Times/Georgia-based typographic classes removed to keep admin sans-serif */
+
+
+/* ====================================================================
+   Unified admin form baseline — overrides leftover page-specific inline
+   styles so inputs/selects/textareas/files/buttons look consistent.
+   This block should be the final authority for control sizing and
+   typography across the Admin portal.
+   ==================================================================== */
+.admin-form-base, form, .responsive-form { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; color: #222; }
+
+form input[type="text"], form input[type="password"], form input[type="date"],
+form input[type="tel"], form input[type="file"], form select, form textarea,
+.form-control input, .form-control select, .form-control textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 10px 12px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #222;
+  min-height: 44px;
+}
+
+/* File inputs typically need smaller visual height but consistent padding */
+form input[type="file"] { min-height: 36px; padding: 8px; }
+
+/* Small variants for inline compact controls (allow override via class) */
+.input-sm { padding: 6px 8px; font-size: 14px; min-height: 36px; }
+
+/* Buttons matching form controls */
+button, input[type="submit"], .btn { font-family: inherit; font-size: 16px; padding: 10px 14px; border-radius: 6px; }
+
+/* Utility to visually hide inline styles left on elements during sweep */
+.removed-inline-style { transition: none !important; }
+
+/* Final enforcement: authoritative rule to make all form controls share
+   the same border and remove unexpected shadows from legacy inline styles.
+   This uses !important on the border/box-shadow so that any leftover
+   per-element inline styles will no longer visually differ. */
+input[type="text"], input[type="password"], input[type="date"],
+input[type="tel"], input[type="file"], textarea, select,
+.form-control input, .form-control select, .form-control textarea {
+  border: 1px solid #cfcfcf !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background-clip: padding-box; /* ensure radius doesn't show artifacts */
+}
+
+/* Ensure disabled/readonly controls remain visually consistent */
+input[disabled], textarea[disabled], select[disabled], input[readonly], textarea[readonly], select[readonly] {
+  opacity: 0.85; cursor: not-allowed;
+}
+
+/* Utility helpers used when replacing inline styles */
+.u-pad-20 { padding: 20px !important; }
+.u-pad-12 { padding: 12px !important; }
+.u-loading { padding: 18px !important; text-align: center !important; }
+.text-center { text-align: center !important; }
+.muted-text { color: #333 !important; }
+.u-mt-8 { margin-top: 8px !important; }
+.row-flex-gap { display:flex !important; gap:12px !important; align-items:flex-start !important; }
+.table-no-border { border-color: #fff !important; }
+.float-right { float: right !important; }
+.ml-16 { margin-left: 16px !important; }
+
+

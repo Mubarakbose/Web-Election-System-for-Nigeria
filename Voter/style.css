@@ -1,0 +1,946 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+/* Use border-box for predictable sizing */
+*, *:before, *:after { box-sizing: border-box; }
+
+html { font-size: 16px; }
+body { font-family: Arial, Helvetica, sans-serif; font-size: 1rem; line-height: 1.4; color: #222; }
+
+strong {
+	color: #2C2B2B;
+}
+
+br.clearfix {
+	clear: both;
+}
+
+img.alignleft {
+	margin: 5px 20px 20px 0;
+	float: left;
+}
+
+img.aligntop {
+	margin: 5px 0 20px 0;
+}
+
+img.pic {
+	padding: 5px;	
+}
+
+#vote{
+	/* paper select candidate */
+	width: 90%;
+	max-width: 900px;
+	min-height: 100px;
+	background: #082502;
+	text-align: center;
+	font-weight: bold;
+	position: relative;
+	background-color: #333333;
+	margin: 10px auto 60px auto;
+	padding: 18px;
+	border-radius: 8px;
+	color: #fff;
+}
+		    
+/* candidate detail popup (modal) */
+#candidate_det{
+	display:none;
+	width: 100%;
+	max-width: 95%;
+	min-height: 160px;
+	height: auto;
+	box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+	position: absolute;
+	top: -110px;
+	background-image: url(../images/bg_body.png);
+	padding: 20px;
+	border-radius: 10px;
+	font-size: 1rem;
+	z-index: 2000;
+	border: 2px dashed #F60;
+	margin: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	box-sizing: border-box;
+}
+			
+h1{ color:white;}
+			
+#profile{ 
+	margin: 0 auto; 
+	width: 100%;
+	max-width: 420px;
+	line-height: 1.4; 
+}
+			
+#profile th{
+	font-size:20px;
+	border-bottom:thin dotted gray;
+}
+
+#profile td{
+	font-size:14px;
+}
+
+/* legacy id-based close styling kept for compatibility */
+#close{ 
+	color:red; 
+	text-decoration:none; 
+	font-family:arial;
+}
+
+#pageWrapper{
+	position:relative;
+}
+
+.images{	
+	border:solid #f60;
+}
+
+.candidate a{
+    display: block;
+    margin-top: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #f60;
+    text-align: center;
+}
+
+.candidate a:hover{
+	text-decoration:underline;
+}
+
+.candidate{
+	width: 150px;
+	max-width: 100%;
+	text-align: center;
+	/* use inline-block so parent centering via text-align works */
+	display: inline-block;
+	vertical-align: top;
+	margin: 10px;
+}
+
+.candidate img{
+	border: 2px solid #fff;
+	height: auto;
+	width: 150px;
+	max-width: 100%;
+	border-radius: 6px;
+	opacity: 0.95;
+	box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+	display: block;
+	margin: 0 auto 8px auto;
+}
+
+.cand-name{
+	text-align: center;
+	color: #f60;
+	font-weight: 600;
+	margin-top: 4px;
+	font-size: 0.95rem;
+}
+
+.candidate img:hover{
+	opacity: 1;
+	transform: scale(1.02);
+}
+				
+#close,.close{
+	margin-top:-5px;
+	color:#f60;
+	text-decoration:none;
+}
+
+/* style the modal close button inside candidate_det so it is always available
+   even when AJAX replaces the inner content of #det */
+#candidate_det > .close{
+	position: absolute !important;
+	top: 10px !important;
+	right: 12px !important;
+	width: 34px !important;
+	height: 34px !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	background: #fff !important;
+	color: #f60 !important;
+	border-radius: 50% !important;
+	text-decoration: none !important;
+	font-weight: 700 !important;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+	z-index: 2101 !important;
+	pointer-events: auto;
+}
+
+/* modal header wrapper to avoid close overlapping inputs */
+.modal-head{ position: relative; display:flex; align-items:center; justify-content:center; padding-bottom:8px; }
+.modal-head h3{ margin:0; color:#fff; font-size:1.05rem; }
+/* ensure position modal has space for the header */
+#position_modal{ padding-top:16px; }
+/* removed pos-close styles: position-modal no longer uses a separate pos-close element */
+
+.errors{
+	color:red;
+	font-size:13px;
+}
+			
+#position {
+	height: 30px;
+	width: 258px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 4px;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 14px;
+	color: #f30;
+	/*border-radius: 6px;*/
+	font-size: 14px;
+	border: 1px solid #f60;
+	text-transform: capitalize;
+}
+
+.position{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 90%;
+	max-width: 500px;
+	min-height: 180px;
+	max-height: 90vh;
+	height: auto;
+	overflow-y: auto;
+	background-image: url(../images/bg_body.png);
+	border-radius: 10px;
+	padding: 14px;
+	box-shadow: 2px 2px 12px rgba(0,0,0,0.4);
+	word-wrap: break-word;
+	font-size: 1rem;
+	z-index: 2000;
+	border: 2px dashed #F60;
+}
+
+/* Candidate cards in the candidates-grid */
+.candidate-card{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 12px;
+	border: 2px solid #ddd;
+	border-radius: 8px;
+	transition: all 0.25s ease;
+	background: white;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.candidate-card:hover{
+	border-color: #f60;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+	transform: translateY(-3px);
+	background: #fffaf5;
+}
+
+/* Card states during voting flow */
+.candidate-card[data-state="voting"],
+.candidate-card[data-state="confirming"],
+.candidate-card[data-state="completed"]{
+	border-color: #4CAF50;
+	box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
+	transform: scale(1.02);
+}
+
+.candidate-card[data-state="error"]{
+	border-color: #dc3545;
+	box-shadow: 0 4px 16px rgba(220, 53, 69, 0.3);
+}
+
+.candidate-card img{
+	width: 100%;
+	max-width: 140px;
+	height: 140px;
+	object-fit: cover;
+	border-radius: 4px;
+	display: block;
+}
+
+.candidate-card .cand-name{
+	font-weight: bold;
+	text-align: center;
+	margin: 8px 0 4px 0;
+	font-size: 0.9rem;
+	word-wrap: break-word;
+}
+
+.candidate-card .cand-party{
+	font-size: 0.8rem;
+	color: #666;
+	text-align: center;
+	margin-top: 4px;
+	word-wrap: break-word;
+}
+	color: #666;
+	text-align: center;
+	margin-top: 4px;
+}
+#vote-modal{
+	display: none;
+	width: 90%;
+	max-width: 600px;
+	min-height: 160px;
+	height: auto;
+	box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+	position: fixed !important;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	background: #fff !important;
+	padding: 24px;
+	border-radius: 12px;
+	font-size: 1rem;
+	z-index: 999999 !important;
+	border: 2px solid #f60;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+/* Ensure inner content is clearly visible on white background */
+#vote-modal-content{
+    position: relative;
+    z-index: 10000;
+    background: #fff !important;
+    color: #222 !important;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+#vote-modal-content table{ background: #fff !important; color:#222 !important; }
+#vote-modal-content td{ color:#222 !important; }
+
+#vote-modal[style*="display: block"],
+#vote-modal.show{
+	display: block !important;
+}
+
+#vote-modal .close{
+	position: absolute !important;
+	top: 8px !important;
+	right: 8px !important;
+	width: 34px !important;
+	height: 34px !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	background: #fff !important;
+	color: #f60 !important;
+	border-radius: 50% !important;
+	text-decoration: none !important;
+	font-weight: 700 !important;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.3) !important;
+	z-index: 2001 !important;
+	border: none !important;
+	cursor: pointer !important;
+	padding: 0 !important;
+	line-height: 1 !important;
+}
+
+/* Position boxes (President, Governor, Senator, Member) - place their close X at top-right */
+.position > .close{
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #f60;
+    border-radius: 50%;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    z-index: 1950;
+}
+
+.position h2{
+	text-align:center;
+	font-family:courier;
+	font-size:20px;
+	color:#F60; 
+}
+		
+/*  Button Style */
+#login input[type=submit], input[type=button], button {
+	border: none;
+	background-color: #fff;
+	padding: 12px 18px;
+	border-radius: 14px;
+	font-weight: 700;
+	color: #f60;
+	box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+#login input[type=submit]:hover, input[type=button]:hover, button:hover{
+	background-color: #efefef;
+}
+
+/* overlay mask for modals */
+#mask{
+	display:none;
+	position:fixed !important;
+	top:0 !important;
+	left:0 !important;
+	width:100% !important;
+	height:100% !important;
+	background:rgba(0,0,0,0.7) !important;
+	z-index:999998 !important;
+	pointer-events: none !important;
+}
+
+#position_modal{
+/* Render position selector inline instead of a full-screen modal by default.
+   Candidate detail popups still use #candidate_det and #mask for modal behaviour. */
+	display: none;
+	position: relative;
+	z-index: 1900;
+	left: auto;
+	top: auto;
+	transform: none;
+	background: #333;
+	padding: 12px 16px;
+	border-radius: 8px;
+	box-shadow: none;
+	text-align: center;
+	width: 100%;
+	max-width: 720px;
+	margin: 0 auto 18px auto;
+}
+
+#position_select{
+	padding:10px 14px;
+	font-size:1rem;
+	width:100%;
+	max-width: 420px;
+}
+
+/* Responsive helpers */
+@media (max-width: 1200px) {
+	.candidate{ width: 24%; }
+	.candidate img{ width: 120px; }
+}
+
+@media (max-width: 1024px) {
+	.candidate{ width: 30%; }
+	.candidate img{ width: 120px; }
+}
+
+@media (max-width: 768px) {
+	.candidate{ width: 45%; margin: 10px 2.5%; }
+	#vote{ padding: 14px; }
+	#position, #position_select{ width: 100%; }
+	#position_modal{ top: 12%; }
+}
+
+@media (max-width: 480px) {
+	.candidate{ width: 100%; margin: 8px auto; display: block; }
+	.candidate img{ width: 100%; max-width: 240px; }
+	#candidate_det{ left: 50%; transform: translateX(-50%); top: -80px; }
+	#position_modal{ top: 8%; padding: 12px; }
+	#login input[type=submit], input[type=button], button{ padding: 12px 14px; font-size: 1rem; }
+}
+
+/* Center the main container so the Voter portal content sits in the middle */
+/* Responsive container: nearly full width on small screens, 900px max on desktop */
+#Container{ 
+	width:96%;
+	max-width:900px;
+	margin:1.5rem auto 3rem auto;
+	box-sizing:border-box; 
+	text-align:center; 
+	background-repeat:no-repeat; 
+	background-size:100% 100%; 
+	background-position:center top;
+	padding: 0 12px;
+	height: auto !important; /* ensure container grows with content */
+	overflow: visible; /* allow children to expand */
+ }
+
+/* Desktop sizing handled in main #Container rule with max-width:900px */
+
+/* Prevent background scroll when any modal is open */
+/* inline behaviour restored; no global scroll lock */
+
+/* Modern header and nav styles for the voter portal (replaces table layout) */
+header#voterHeader{
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	gap:12px;
+	padding:12px 18px;
+	background: linear-gradient(180deg,#0a3  , #036); /* subtle gradient */
+	color:#fff;
+	border-radius:8px;
+	margin: 10px 0 18px 0;
+	/* center the header container */
+	max-width: 100%;
+	width: calc(100% - 40px);
+	box-sizing: border-box;
+	margin-left: auto;
+	margin-right: auto;
+}
+header#voterHeader .welcome{
+	font-size:1.05rem;
+	font-weight:700;
+}
+/* Flag positioned at top-left */
+#flag{ float:left; height:85px; width:150px; background-position:center; background-repeat:no-repeat; background-image:url(../images/Flag_of_Nigeria.png); margin-left:18px; margin-top:20px; margin-bottom:20px; border-radius:8px; }
+
+@media (max-width:720px){
+	#flag{ float:none; display:block; margin:10px auto; margin-top:6px; }
+}
+/* Primary menu for voter portal (flex, responsive) */
+#MenuBar1{
+	list-style:none;
+	display:flex;
+	gap:10px;
+	align-items:center;
+	flex-wrap:wrap; /* allow items to wrap if space limited */
+}
+#MenuBar1 li{ display:block; }
+#MenuBar1 li a{
+	color:#fff;
+	padding:8px 12px;
+	text-decoration:none;
+	border-radius:6px;
+	background:transparent;
+	display:block;
+	white-space:nowrap; /* prefer single-line labels on wider screens */
+	overflow: visible; /* allow full label to render instead of clipping */
+	text-overflow: clip;
+	transition: background-color 160ms ease, color 160ms ease, opacity 160ms ease;
+}
+/* stronger hover so the background change is visually complete */
+#MenuBar1 li a:hover{ background: rgba(255,255,255,0.14); color:#fff; opacity:1; }
+
+/* Fallback: some pages use #cssmenu; make it match the voter header style when inside the header */
+header#voterHeader #cssmenu,
+header#voterHeader #cssmenu ul,
+header#voterHeader #cssmenu li,
+header#voterHeader #cssmenu a{
+	margin:0; padding:0; border:none; background:transparent; color:#fff; font-weight:700;
+}
+header#voterHeader #cssmenu > ul { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+header#voterHeader #cssmenu > ul > li > a{ padding:8px 12px; white-space:nowrap; overflow:visible; text-overflow:clip; border-radius:6px; transition: background-color 160ms ease; }
+header#voterHeader #cssmenu > ul > li > a:hover{ background: rgba(255,255,255,0.14); }
+
+/* Override Spry Menu fixed widths inside voter header so labels show fully */
+header#voterHeader ul.MenuBarHorizontal { display:flex !important; gap:10px !important; flex-wrap:wrap !important; align-items:center !important; }
+header#voterHeader ul.MenuBarHorizontal li { width: auto !important; float: none !important; padding: 0 !important; }
+header#voterHeader ul.MenuBarHorizontal a { padding:8px 12px !important; white-space:nowrap !important; overflow:visible !important; text-overflow:clip !important; }
+
+/* Position-modal specific close button and animations */
+#position_modal{ position:relative; overflow:visible; }
+#position_modal .close{
+	position:absolute;
+	top:8px;
+	right:8px;
+	width:34px;
+	height:34px;
+	border-radius:50%;
+	background:#fff;
+	color:#f60;
+	display:inline-flex;
+	align-items:center;
+	justify-content:center;
+	font-weight:800;
+	box-shadow:0 2px 6px rgba(0,0,0,0.2);
+	text-decoration:none;
+	z-index:2001;
+}
+
+/* subtle entrance/exit for popups */
+#candidate_det, #position_modal, .position{
+	transition: transform 220ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease;
+}
+/* preserve horizontal centering for candidate_det and position by keeping translateX(-50%) */
+#candidate_det.show{ transform: translateX(-50%) translateY(0); opacity:1; }
+#candidate_det.hidden{ transform: translateX(-50%) translateY(-8px); opacity:0; }
+.position.show{ transform: translateX(-50%) translateY(0); opacity:1; }
+.position.hidden{ transform: translateX(-50%) translateY(-8px); opacity:0; }
+/* keep position_modal animations vertical only (it doesn't use translateX) */
+#position_modal.show{ transform: translateY(0); opacity:1; }
+#position_modal.hidden{ transform: translateY(-8px); opacity:0; }
+
+/* Page-specific utilities moved from inline styles in Voter pages */
+
+/* Link reset used by VoterIndex */
+a:link { color: #F00; text-decoration: none; }
+a:hover { color: #F06; text-decoration: none; }
+a:visited, a:active { text-decoration: none; }
+
+.voterindextabletitle {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	font-variant: normal;
+	text-transform: capitalize;
+}
+
+/* Tiles grid used on VoterIndex */
+.tiles-grid{ display:flex; gap:18px; flex-wrap:wrap; justify-content:center; align-items:stretch; max-width:100%; margin:12px auto; }
+.tile{ flex: 1 1 150px; min-width:140px; max-width:220px; background: #fff; border-radius:10px; padding:12px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.08); color:#222; }
+.tile img{ max-width:120px; height:auto; display:block; margin:0 auto 8px; }
+.tile h4{ margin:0; font-size:1rem; color:#f60; }
+@media (max-width:520px){ .tiles-grid{ gap:12px; } .tile{ flex:1 1 100%; max-width:360px; } }
+
+/* Allow menu labels to wrap on small screens instead of ellipsing */
+@media (max-width:520px) {
+	header#voterHeader #MenuBar1 li a,
+	header#voterHeader #cssmenu > ul > li > a {
+		white-space: normal;
+		padding: 8px 10px;
+		font-size: 0.95rem;
+	}
+}
+
+/* Profile card styles */
+.profile-card{ max-width:100%; margin:0 auto; background:#fff; border-radius:10px; padding:18px; display:flex; gap:18px; align-items:flex-start; box-shadow:0 4px 12px rgba(0,0,0,0.06); }
+.profile-details{ flex:1 1 60%; }
+.profile-photo{ flex:0 0 160px; text-align:center; }
+.profile-photo img{ width:140px; height:auto; border-radius:8px; }
+.profile-row{ display:flex; gap:12px; padding:8px 0; border-bottom:1px solid #f1f1f1; align-items:center; }
+.profile-row .label{ width:180px; font-weight:700; color:#333; }
+.profile-row .value{ flex:1; color:#444; }
+@media (max-width:680px){ .profile-card{ flex-direction:column; } .profile-row{ flex-direction:column; align-items:flex-start; } .profile-row .label{ width:auto; } }
+
+/* Form grid used on ChangeDetails */
+.form-grid{ max-width:100%; margin:12px auto; background:#fff; padding:16px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.06); color:#000; }
+.form-row{ display:flex; gap:12px; align-items:center; padding:10px 0; }
+.form-row label{ width:160px; font-weight:700; color:#333; }
+.form-row .control{ flex:1; }
+#UpdateLoginDetails input[type="text"],
+#UpdateLoginDetails input[type="password"]{ padding:8px 12px !important; border:1px solid #ccc !important; border-radius:4px; font-size:14px !important; width:100% !important; box-sizing:border-box; color:#000 !important; }
+#UpdateLoginDetails input[type="text"]:focus,
+#UpdateLoginDetails input[type="password"]:focus{ outline:none; border-color:#4CAF50 !important; box-shadow:0 0 0 2px rgba(76,175,80,0.2); }
+.form-actions{ text-align:left; padding-top:12px; }
+#UpdateLoginDetails input[type="submit"]{ background:#4CAF50 !important; color:#fff !important; border:none; padding:10px 20px !important; font-size:15px !important; font-weight:600; border-radius:5px; cursor:pointer; transition:background 0.3s ease; }
+#UpdateLoginDetails input[type="submit"]:hover{ background:#45a049 !important; }
+#UpdateLoginDetails input[type="reset"]{ background:#f44336 !important; color:#fff !important; border:none; padding:10px 20px !important; font-size:15px !important; font-weight:600; border-radius:5px; cursor:pointer; margin-left:12px; transition:background 0.3s ease; }
+#UpdateLoginDetails input[type="reset"]:hover{ background:#da190b !important; }
+@media (max-width:640px){ .form-row{ flex-direction:column; align-items:flex-start; } .form-row label{ width:auto; } }
+
+/* Container and Admin login: responsive, auto-height (expand with content) */
+/* Container with 900px max-width, responsive padding */
+#Container{
+	width: 96%;
+	max-width: 900px;
+	margin: 1.5rem auto 3rem auto;
+	box-sizing: border-box;
+	text-align: center;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center top;
+	padding: 0 12px;
+	position: relative;
+	height: auto !important; /* ensure container grows with content */
+	overflow: visible; /* allow children to expand */
+}
+
+/* Make sure the container clears floats and contains children (so background shows under cards) */
+#Container::after{ content: ""; display: table; clear: both; }
+
+/* Ensure Adminlogin grows with its content and clears floated header elements.
+	 Constrain its width so it doesn't overflow the main container and allow scrolling
+	 when inner content briefly exceeds available width. */
+#Adminlogin{
+	/* Full-width content area inside Container */
+	clear: both;
+	float: none;
+	display: block;
+	z-index: 50;
+	margin: 1.5rem auto 2rem auto;
+	padding: 0.8rem 1rem;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	overflow: visible;
+	background: #333;
+	box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+	border-radius: 8px;
+	height: auto !important;
+}
+
+/* Text color for main content area */
+#Adminlogin main{ color:#fff; }
+#Adminlogin main p{ color:#fff; font-size:16px; margin:12px 0; }
+
+@media (max-width: 480px){
+	#Adminlogin{ margin-top: 0.6rem; padding-top: 0.4rem; }
+}
+
+/* Results card grid */
+.results-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap:16px;
+    margin: 18px auto;
+    width: 100%;
+    max-width: 720px;
+    padding: 6px;
+    box-sizing: border-box;
+}
+.result-card{
+	background: #fff;
+	color: #222;
+	border-radius:8px;
+	padding:12px;
+	display:flex;
+	gap:12px;
+	align-items:center;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+	overflow: hidden;
+	word-wrap: break-word;
+}
+.result-card img{ width:80px; height:80px; min-width:80px; border-radius:6px; object-fit:cover; }
+.result-body{ flex:1; text-align:left; min-width:0; overflow:hidden; }
+.result-body h3{ margin:0 0 6px 0; font-size:1.05rem; color:#f60; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.result-body p{ margin:0; color:#444; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.result-body small{ display:block; margin-top:4px; color:#666; font-size:0.85rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.result-votes{ font-weight:700; font-size:1.1rem; color:#222; min-width:70px; text-align:right; white-space:nowrap; }
+
+/* Results section styling */
+#results-section{ background:#f9f9f9; }
+#results-title{ color:#f60; margin:0; }
+
+/* Position result cards on Results page - match vote page style */
+.tile.position-result-card{ 
+	background:linear-gradient(135deg, #fff 0%, #f8f9fa 100%); 
+	border:2px solid #e5e7eb; 
+	cursor:pointer; 
+	transition:all 0.3s; 
+	box-shadow:0 2px 8px rgba(0,0,0,0.08);
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
+	min-height:120px;
+}
+.tile.position-result-card:hover{ 
+	border-color:#f60; 
+	box-shadow:0 4px 16px rgba(255,102,0,0.15); 
+	transform:translateY(-4px); 
+}
+.tile.position-result-card h4{ 
+	color:#1f2937; 
+	font-size:1.1rem; 
+	margin:0 0 12px 0; 
+	font-weight:700; 
+}
+.tile.position-result-card p{ 
+	background:linear-gradient(135deg, #f60 0%, #ff8533 100%); 
+	color:#fff; 
+	border:none; 
+	padding:8px 16px; 
+	border-radius:6px; 
+	font-size:0.9rem; 
+	font-weight:600; 
+	margin:0;
+	box-shadow:0 2px 8px rgba(255,102,0,0.3);
+}
+
+/* index tiles grid */
+.tiles-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:14px; max-width:500px; margin:10px auto; }
+.tile{ background:#fff; padding:12px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.08); text-align:center; }
+.tile img{ max-width:100%; height:auto; display:block; margin:0 auto 8px; }
+
+/* VoterIndex specific: display tiles in a single row */
+.index-tiles{ display:flex; flex-wrap:nowrap; max-width:100%; gap:12px; justify-content:center; overflow-x:auto; }
+.index-tiles .tile{ padding:10px; flex:1; min-width:120px; max-width:180px; }
+
+
+/* ===== NEW VOTING FLOW STYLES ===== */
+
+/* Flash messages for vote confirmations */
+#flash_container{ max-width:720px; margin:0 auto 18px; }
+.vote-flash{
+	background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+	color: #fff;
+	padding: 14px 18px;
+	border-radius: 8px;
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+	animation: slideInDown 0.4s ease-out;
+	font-size: 1rem;
+	font-weight: 500;
+}
+.vote-flash.success{ background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+.vote-flash.warning{ 
+	background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+	box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+.flash-close{
+	background: transparent;
+	border: none;
+	color: #fff;
+	font-size: 1.5rem;
+	font-weight: 700;
+	cursor: pointer;
+	padding: 0;
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	transition: background 0.2s;
+	margin-left: 12px;
+	flex-shrink: 0;
+}
+.flash-close:hover{ background: rgba(255,255,255,0.2); }
+
+@keyframes slideInDown {
+	from { transform: translateY(-20px); opacity: 0; }
+	to { transform: translateY(0); opacity: 1; }
+}
+
+/* Position cards use tiles-grid from VoterIndex */
+.tile.position-card{
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+}
+
+.tile.position-card::before{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: linear-gradient(90deg, #f60, #ff8533);
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.tile.position-card:hover::before{ opacity: 1; }
+
+.tile.position-card:hover{
+	transform: translateY(-4px);
+	box-shadow: 0 8px 24px rgba(255, 102, 0, 0.15);
+	border-color: #f60;
+}
+
+.tile.position-card h4{
+	color: #1f2937;
+	font-size: 1.1rem;
+	margin: 0 0 12px 0;
+	font-weight: 700;
+}
+
+.tile.position-card .select-position-btn{
+	background: linear-gradient(135deg, #f60 0%, #ff8533 100%);
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 8px;
+	font-size: 0.95rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s;
+	box-shadow: 0 4px 12px rgba(255, 102, 0, 0.3);
+}
+
+.tile.position-card .select-position-btn:hover{
+	background: linear-gradient(135deg, #e55a00 0%, #f60 100%);
+	transform: scale(1.05);
+}
+
+.tile.position-card.voted{
+	background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+	border-color: #86efac;
+	cursor: default;
+	opacity: 0.8;
+}
+
+.tile.position-card.voted::before{ background: linear-gradient(90deg, #10b981, #059669); opacity: 1; }
+
+.tile.position-card.voted:hover{
+	transform: none;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.tile.position-card .voted-badge{
+	display: inline-block;
+	background: #10b981;
+	color: #fff;
+	padding: 6px 14px;
+	border-radius: 20px;
+	font-size: 0.9rem;
+	font-weight: 600;
+}
+
+/* Position modal with candidates */
+.position-modal-candidates{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 90%;
+	max-width: 900px;
+	max-height: 85vh;
+	background: #fff;
+	border-radius: 12px;
+	padding: 32px 24px;
+	box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+	z-index: 2100;
+	overflow-y: auto;
+}
+
+.position-modal-candidates h2{
+	text-align: center;
+	color: #1f2937;
+	font-size: 1.5rem;
+	margin: 0 0 24px 0;
+	padding-bottom: 12px;
+	border-bottom: 2px solid #e5e7eb;
+}
+
+.position-modal-candidates > .close{
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	width: 36px;
+	height: 36px;
+	background: #f3f4f6;
+	color: #6b7280;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
+	font-weight: 700;
+	text-decoration: none;
+	cursor: pointer;
+	transition: all 0.2s;
+	z-index: 2110;
+}
+
+.position-modal-candidates > .close:hover{
+	background: #f60;
+	color: #fff;
+}
+
+@media (max-width: 768px) {
+	.candidates-grid{ flex-direction: column; align-items: center; }
+	.candidate-card{ width: 100%; max-width: 240px; }

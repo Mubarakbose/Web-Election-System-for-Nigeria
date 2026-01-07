@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: inec-web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./Admin/ContestantsImages:/var/www/html/Admin/ContestantsImages
+      - ./Admin/StaffsImages:/var/www/html/Admin/StaffsImages
+      - ./PollingStaff/VotersImages:/var/www/html/PollingStaff/VotersImages
+    environment:
+      - DB_HOST=db
+      - DB_NAME=inec
+      - DB_USER=root
+      - DB_PASSWORD=root
+    depends_on:
+      - db
+    networks:
+      - inec-network
+
+  db:
+    image: mysql:8.0
+    container_name: inec-db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: inec
+      MYSQL_USER: inec_user
+      MYSQL_PASSWORD: inec_pass
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./Database/inec.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - inec-network
+    command: --default-authentication-plugin=mysql_native_password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: inec-phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    depends_on:
+      - db
+    networks:
+      - inec-network
+
+volumes:
+  db-data:
+
+networks:
+  inec-network:
+    driver: bridge

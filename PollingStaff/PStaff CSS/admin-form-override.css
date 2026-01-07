@@ -1,0 +1,205 @@
+/* ========================================================================
+   ADMIN PORTAL FORM STYLES - APPLIED TO POLLING STAFF PORTAL
+   Sourced from Admin/CSS Files/Indexstyle.css
+   ======================================================================== */
+
+/* Ensure form controls are responsive by default */
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="date"],
+.form-container input[type="tel"],
+.form-container input[type="email"],
+.form-container input[type="number"],
+.form-container input[type="file"],
+.form-container select,
+.form-container textarea,
+.form-control input,
+.form-control select,
+.form-control textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Standardize form/input appearance - match Admin portal */
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="date"],
+.form-container input[type="tel"],
+.form-container input[type="email"],
+.form-container input[type="number"],
+.form-container input[type="file"],
+.form-container select,
+.form-container textarea,
+.form-control input,
+.form-control select,
+.form-control textarea {
+  font-family: inherit !important;
+  font-size: 16px !important;
+  padding: 10px 12px !important;
+  border: 1px solid #cfcfcf !important;
+  border-radius: 6px !important;
+  background-color: #fff !important;
+  color: #222 !important;
+  line-height: 1.4 !important;
+  height: auto !important;
+  min-height: 44px !important;
+}
+
+/* File inputs */
+.form-container input[type="file"] {
+  padding: 8px !important;
+}
+
+/* Select dropdowns */
+.form-container select,
+.form-control select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-position: right 12px center !important;
+  background-repeat: no-repeat !important;
+  padding-right: 32px !important;
+}
+
+/* Textareas */
+.form-container textarea,
+.form-control textarea {
+  min-height: 96px !important;
+  resize: vertical !important;
+}
+
+/* Focus state - Admin portal blue glow */
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus,
+.form-control input:focus,
+.form-control select:focus,
+.form-control textarea:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(102,153,255,0.15) !important;
+  border-color: #66a3ff !important;
+}
+
+/* Placeholder text */
+.form-container ::placeholder,
+.form-control ::placeholder {
+  color: #7a7a7a !important;
+  opacity: 1 !important;
+}
+
+/* Readonly and disabled fields */
+.form-container input[readonly],
+.form-container textarea[readonly],
+.form-container select[disabled],
+.form-control input[readonly],
+.form-control select[disabled],
+.form-control textarea[readonly] {
+  background-color: #f5f5f5 !important;
+  color: #999 !important;
+  cursor: not-allowed !important;
+  border-color: #ddd !important;
+}
+
+/* Validation helpers */
+.form-container .invalid,
+.form-control .invalid {
+  border-color: #e05a5a !important;
+  box-shadow: none !important;
+}
+
+.form-container .error-message,
+.form-control .error-message {
+  color: #e05a5a !important;
+  font-size: 0.9rem !important;
+  margin-top: 6px !important;
+  display: none !important;
+}
+
+.form-container .has-error .error-message,
+.form-control .has-error .error-message {
+  display: block !important;
+}
+
+/* Buttons - Admin portal style */
+.form-container .btn,
+.form-container button,
+.form-container input[type="submit"],
+.form-container input[type="reset"],
+.form-actions .btn,
+.form-actions button,
+.form-actions input[type="submit"],
+.form-actions input[type="reset"] {
+  background: #3c3c3c !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 10px 14px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  display: inline-block !important;
+  margin-right: 8px !important;
+  margin-bottom: 8px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.form-container .btn:hover,
+.form-container button:hover,
+.form-container input[type="submit"]:hover,
+.form-container input[type="reset"]:hover,
+.form-actions .btn:hover,
+.form-actions button:hover,
+.form-actions input[type="submit"]:hover,
+.form-actions input[type="reset"]:hover {
+  background: #2e2e2e !important;
+}
+
+.form-container .btn-secondary,
+.form-container input[type="reset"],
+.form-actions .btn-secondary,
+.form-actions input[type="reset"] {
+  background: #6c757d !important;
+}
+
+.form-container .btn-secondary:hover,
+.form-container input[type="reset"]:hover,
+.form-actions .btn-secondary:hover,
+.form-actions input[type="reset"]:hover {
+  background: #5a6268 !important;
+}
+
+/* Button focus state */
+.form-container .btn:focus,
+.form-container button:focus,
+.form-container input[type="submit"]:focus,
+.form-container input[type="reset"]:focus {
+  outline: 3px solid rgba(102,153,255,0.2) !important;
+  outline-offset: 2px !important;
+}
+
+/* Fieldset and legend - Admin portal style */
+.form-container fieldset {
+  border: 1px solid rgba(0,0,0,0.06) !important;
+  padding: 12px !important;
+  border-radius: 6px !important;
+  margin-bottom: 16px !important;
+  background-color: transparent !important;
+}
+
+.form-container legend {
+  padding: 0 8px !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+  font-size: 18px !important;
+}
+
+/* Labels */
+.form-container .form-label,
+.form-container label {
+  font-family: inherit !important;
+  font-size: 15px !important;
+  color: #333 !important;
+  font-weight: 700 !important;
+}

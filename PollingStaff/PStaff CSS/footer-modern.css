@@ -1,0 +1,267 @@
+/* ========================================================================
+   MODERN FOOTER STYLES - POLLING STAFF PORTAL
+   ======================================================================== */
+
+.site-footer {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: #ecf0f1;
+    padding: 40px 20px 0;
+    margin-top: auto;
+    border-top: 4px solid #3498db;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    padding-bottom: 30px;
+}
+
+.footer-column {
+    padding: 0 15px;
+}
+
+.footer-column h3 {
+    color: #3498db;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(52, 152, 219, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-column h4 {
+    color: #bdc3c7;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 20px 0 12px;
+    text-transform: uppercase;
+}
+
+/* Footer Links */
+.footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.footer-links li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #3498db;
+    font-weight: bold;
+}
+
+.footer-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: #3498db;
+    padding-left: 5px;
+}
+
+/* Footer Contact Section */
+.footer-contact {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid #3498db;
+}
+
+.footer-contact p {
+    margin: 0 0 8px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-contact strong {
+    color: #3498db;
+    font-weight: 700;
+}
+
+/* About Section */
+.footer-about {
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0 0 20px;
+    color: #bdc3c7;
+}
+
+/* Social Media Links */
+.footer-social {
+    margin-top: 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    border-color: #3498db;
+}
+
+.social-icon.facebook:hover {
+    background-color: #3b5998;
+    color: #fff;
+}
+
+.social-icon.twitter:hover {
+    background-color: #1da1f2;
+    color: #fff;
+}
+
+.social-icon.instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #fff;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px 15px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-bottom p {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #bdc3c7;
+}
+
+.footer-meta {
+    font-size: 13px;
+    color: #95a5a6;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 30px 15px 0;
+        margin-top: 40px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-bottom: 20px;
+    }
+
+    .footer-column {
+        padding: 0;
+    }
+
+    .footer-column h3 {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .footer-links li {
+        margin-bottom: 10px;
+    }
+
+    .footer-contact {
+        padding: 12px;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .footer-bottom {
+        padding: 15px 10px;
+    }
+
+    .footer-bottom p {
+        font-size: 13px;
+    }
+
+    .footer-meta {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-footer {
+        padding: 20px 10px 0;
+    }
+
+    .footer-column h3 {
+        font-size: 15px;
+    }
+
+    .footer-links a {
+        font-size: 14px;
+    }
+
+    .footer-about {
+        font-size: 13px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .site-footer {
+        background: #fff !important;
+        color: #000 !important;
+        border-top: 2px solid #000;
+        page-break-inside: avoid;
+    }
+
+    .footer-column h3 {
+        color: #000 !important;
+    }
+
+    .footer-links a {
+        color: #000 !important;
+    }
+
+    .social-links,
+    .footer-social {
+        display: none !important;
+    }
+}
