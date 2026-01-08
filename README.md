@@ -1,6 +1,6 @@
 # INEC Election Management System
 
-A comprehensive web-based election management system built for the Independent National Electoral Commission (INEC) of Nigeria. This system provides a complete digital infrastructure for conducting democratic elections with three distinct portals for different user types.
+A comprehensive web-based election management system built for the Independent National Electoral Commission (INEC) of Nigeria (as my improved BSc final project). This system provides a complete digital infrastructure for conducting democratic elections with three distinct portals for different user types.
 
 ## 🎯 Features
 
