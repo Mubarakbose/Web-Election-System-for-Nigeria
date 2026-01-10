@@ -75,19 +75,13 @@ docker-compose up -d
 
 - **Main Application**: http://localhost:8090
 - **phpMyAdmin**: http://localhost:8081
-- **MySQL Database**: localhost:3307
+- **MySQL**: localhost:3307
 
 4. Default credentials:
 
 - **Database**: root/root
 - **Admin**: (configure in database)
 - **Polling Staff**: (configure in database)
-
-5. Stop containers:
-
-```bash
-docker-compose down
-```
 
 ### Manual Installation (XAMPP/WAMP)
 
