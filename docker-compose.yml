@@ -5,7 +5,7 @@ services:
     build: .
     container_name: inec-web
     ports:
-      - "8080:80"
+      - "8090:80"
     volumes:
       - .:/var/www/html
       - ./Admin/ContestantsImages:/var/www/html/Admin/ContestantsImages

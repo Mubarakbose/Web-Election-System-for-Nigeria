@@ -4,7 +4,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-image:url(../images/bg-body.jpg);
+  background-image:url(../images/bg_body.png);
   background-attachment:fixed;
 }
 /* UI improvements: base fonts and better mobile contrast */

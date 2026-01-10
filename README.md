@@ -61,8 +61,8 @@ A comprehensive web-based election management system built for the Independent N
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd FYP
+git clone https://github.com/Mubarakbose/Web-Election-System-for-Nigeria.git
+cd Web-Election-System-for-Nigeria
 ```
 
 2. Start the containers:
@@ -73,14 +73,21 @@ docker-compose up -d
 
 3. Access the application:
 
-- **Main Application**: http://localhost:8080
+- **Main Application**: http://localhost:8090
 - **phpMyAdmin**: http://localhost:8081
+- **MySQL Database**: localhost:3307
 
 4. Default credentials:
 
 - **Database**: root/root
 - **Admin**: (configure in database)
 - **Polling Staff**: (configure in database)
+
+5. Stop containers:
+
+```bash
+docker-compose down
+```
 
 ### Manual Installation (XAMPP/WAMP)
 
