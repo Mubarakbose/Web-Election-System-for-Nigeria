@@ -20,8 +20,8 @@ WORKDIR /var/www/html
 # Copy application files
 COPY . /var/www/html/
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader || true
+# Remove BOM from all PHP files
+RUN for file in $(find /var/www/html -name "*.php" -type f); do if [ -f "$file" ]; then tail -c +4 "$file" > "$file.tmp" && mv "$file.tmp" "$file"; fi; done || true
 
 # Create necessary directories and set permissions
 RUN mkdir -p Admin/ContestantsImages Admin/StaffsImages PollingStaff/VotersImages \

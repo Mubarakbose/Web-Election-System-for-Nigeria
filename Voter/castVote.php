@@ -18,7 +18,7 @@ try {
   $pdo->beginTransaction();
 
   // Fetch contestant
-  $stmt = db_query('SELECT ContestantID, FirstName, OtherNames, Position, PartyName, Votes FROM Contestant WHERE ContestantID = :cid', [':cid' => $contestantId]);
+  $stmt = db_query('SELECT ContestantID, FirstName, OtherNames, Position, PartyName, Votes FROM contestant WHERE ContestantID = :cid', [':cid' => $contestantId]);
   $contestant = db_fetch_assoc($stmt);
   if (!$contestant) {
     throw new RuntimeException('Contestant not found');
