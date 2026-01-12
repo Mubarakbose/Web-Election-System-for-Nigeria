@@ -1,9 +1,30 @@
 <?php
-// DB helper wrapper around PDO. Relies on `$pdo` being created in Connections/localhost.php
+// DB helper wrapper around PDO. If Connections/localhost.php is missing, attempt
+// to bootstrap a PDO connection from environment variables (works in Docker).
 if (!isset($pdo) || !$pdo instanceof PDO) {
-    // Try to create $pdo if Connections/localhost.php wasn't loaded or failed
+    // Try legacy include first
     if (file_exists(__DIR__ . '/localhost.php')) {
         require_once __DIR__ . '/localhost.php';
+    }
+
+    // Fallback: build PDO using env vars (Docker-compose provides these)
+    if (!isset($pdo) || !$pdo instanceof PDO) {
+        $dbHost = getenv('DB_HOST') ?: 'db';
+        $dbName = getenv('DB_NAME') ?: 'inec';
+        $dbUser = getenv('DB_USER') ?: 'root';
+        $dbPass = getenv('DB_PASSWORD') ?: 'root';
+        $dbPort = getenv('DB_PORT') ?: '3306';
+
+        $dsn = "mysql:host={$dbHost};port={$dbPort};dbname={$dbName};charset=utf8";
+        try {
+            $pdo = new PDO($dsn, $dbUser, $dbPass, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]);
+        } catch (Throwable $e) {
+            // Leave $pdo unset; callers will throw a clearer error
+        }
     }
 }
 
