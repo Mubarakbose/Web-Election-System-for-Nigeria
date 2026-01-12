@@ -10,8 +10,9 @@ vendor/
 .env.local
 *.env
 
-# Database backups
+# Database backups (but include initialization scripts)
 *.sql
+!Database/inec.sql/**/*.sql
 
 # IDE/Editor files
 .vscode/
