@@ -34,7 +34,7 @@ services:
       MYSQL_PASSWORD: inec_pass
     volumes:
       - db-data:/var/lib/mysql
-      - ./Database/inec.sql:/docker-entrypoint-initdb.d/
+      - ./Database/inec.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - inec-network
     command: --default-authentication-plugin=mysql_native_password
