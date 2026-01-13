@@ -54,7 +54,7 @@ try {
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link href="../CSS Style/VoterGuideStyle.css" rel="stylesheet" type="text/css" />
-	<link href="style.css?v=20251227" rel="stylesheet" type="text/css" />
+	<link href="style.css?v=20260113h" rel="stylesheet" type="text/css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<title>INEC | Vote President</title>
 </head>
@@ -65,6 +65,9 @@ try {
 		<div id="Adminlogin">
 			<header id="voterHeader">
 				<div class="welcome">Welcome <?php echo htmlspecialchars($row_Voter["FirstName"]); ?> <?php echo htmlspecialchars($row_Voter["OtherName"]); ?></div>
+				<button class="menu-toggle" aria-label="Toggle menu" onclick="document.querySelector('header#voterHeader nav').classList.toggle('active')">
+					☰
+				</button>
 				<nav>
 					<ul id="MenuBar1" class="MenuBarHorizontal">
 						<li><a href="VoterIndex.php">Home</a></li>

@@ -86,7 +86,7 @@ unset($VoterProfile);
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>View Profile</title>
   <link href="../CSS Style/VoterGuideStyle.css" rel="stylesheet" type="text/css" />
-  <link href="style.css?v=20251227" rel="stylesheet" type="text/css" />
+  <link href="style.css?v=20260113h" rel="stylesheet" type="text/css" />
 </head>
 
 <body topmargin="35" bgcolor="#006666" style="text-transform:capitalize;">
@@ -94,6 +94,9 @@ unset($VoterProfile);
     <div id="flag"></div>
     <div id="Adminlogin">
       <header id="voterHeader">
+        <button class="menu-toggle" aria-label="Toggle menu" onclick="document.querySelector('header#voterHeader nav').classList.toggle('active')">
+          ☰
+        </button>
         <nav>
           <ul id="MenuBar1" class="MenuBarHorizontal">
             <li><a href="VoterIndex.php">Home</a></li>

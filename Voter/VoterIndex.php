@@ -43,7 +43,7 @@ try {
   <title>Index</title>
 
   <link href="../CSS Style/VoterGuideStyle.css" rel="stylesheet" type="text/css" />
-  <link href="style.css?v=20251227" rel="stylesheet" type="text/css" />
+  <link href="style.css?v=20260113h" rel="stylesheet" type="text/css" />
   <style type="text/css">
     a:link {
       color: #F00;

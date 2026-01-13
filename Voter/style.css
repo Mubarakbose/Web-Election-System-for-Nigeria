@@ -6,8 +6,10 @@
 /* Use border-box for predictable sizing */
 *, *:before, *:after { box-sizing: border-box; }
 
-html { font-size: 16px; }
-body { font-family: Arial, Helvetica, sans-serif; font-size: 1rem; line-height: 1.4; color: #222; }
+html { font-size: 16px; overflow-x: hidden; width: 100%; }
+@media (max-width: 768px) { html { font-size: 15px; } }
+@media (max-width: 480px) { html { font-size: 14px; } }
+body { font-family: Arial, Helvetica, sans-serif; font-size: 1rem; line-height: 1.4; color: #222; overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
 
 strong {
 	color: #2C2B2B;
@@ -495,16 +497,40 @@ header#voterHeader{
 	box-sizing: border-box;
 	margin-left: auto;
 	margin-right: auto;
+	position: relative;
 }
 header#voterHeader .welcome{
 	font-size:1.05rem;
 	font-weight:700;
+	flex: 1;
+}
+
+/* Burger menu toggle button (hidden by default, shown on mobile) */
+.menu-toggle {
+	display: none;
+	background: none;
+	border: none;
+	color: #fff;
+	font-size: 1.5rem;
+	cursor: pointer;
+	padding: 5px 10px;
+	line-height: 1;
+	z-index: 1000;
+}
+
+.menu-toggle:hover {
+	background: rgba(255,255,255,0.1);
+	border-radius: 4px;
 }
 /* Flag positioned at top-left */
-#flag{ float:left; height:85px; width:150px; background-position:center; background-repeat:no-repeat; background-image:url(../images/Flag_of_Nigeria.png); margin-left:18px; margin-top:20px; margin-bottom:20px; border-radius:8px; }
+#flag{ float:left; height:85px; width:150px; background-position:center; background-repeat:no-repeat; background-image:url(../images/Flag_of_Nigeria.png); margin-left:0; margin-top:20px; margin-bottom:20px; border-radius:8px; box-sizing: border-box; }
 
 @media (max-width:720px){
-	#flag{ float:none; display:block; margin:10px auto; margin-top:6px; }
+	#flag{ float:none; display:block; margin:10px auto; margin-top:15px; margin-bottom:15px; }
+}
+
+@media (max-width:480px){
+	#flag{ margin-top:10px; margin-bottom:10px; height:70px; width:120px; }
 }
 /* Primary menu for voter portal (flex, responsive) */
 #MenuBar1{
@@ -595,19 +621,96 @@ a:visited, a:active { text-decoration: none; }
 }
 
 /* Tiles grid used on VoterIndex */
-.tiles-grid{ display:flex; gap:18px; flex-wrap:wrap; justify-content:center; align-items:stretch; max-width:100%; margin:12px auto; }
-.tile{ flex: 1 1 150px; min-width:140px; max-width:220px; background: #fff; border-radius:10px; padding:12px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.08); color:#222; }
+.tiles-grid{ display:flex; gap:18px; flex-wrap:wrap; justify-content:center; align-items:stretch; max-width:100%; margin:12px auto; padding: 0; box-sizing: border-box; width: 100%; }
+.tile{ flex: 1 1 150px; min-width:140px; max-width:220px; background: #fff; border-radius:10px; padding:12px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.08); color:#222; box-sizing: border-box; }
 .tile img{ max-width:120px; height:auto; display:block; margin:0 auto 8px; }
 .tile h4{ margin:0; font-size:1rem; color:#f60; }
-@media (max-width:520px){ .tiles-grid{ gap:12px; } .tile{ flex:1 1 100%; max-width:360px; } }
+
+@media (max-width:720px){ .tiles-grid{ gap:14px; } .tile{ flex: 1 1 130px; min-width:100px; padding:10px; } .tile img{ max-width:100px; } .tile h4{ font-size:0.95rem; } }
+@media (max-width:520px){ .tiles-grid{ gap:12px; } .tile{ flex:1 1 calc(50% - 6px); max-width:calc(50% - 6px); min-width:130px; padding:14px; } .tile img{ max-width:110px; } }
+@media (max-width:380px){ .tiles-grid{ gap:8px; } .tile{ flex:1 1 100%; max-width:100%; min-width:0; } }
 
 /* Allow menu labels to wrap on small screens instead of ellipsing */
-@media (max-width:520px) {
+@media (max-width:720px) {
 	header#voterHeader #MenuBar1 li a,
 	header#voterHeader #cssmenu > ul > li > a {
 		white-space: normal;
-		padding: 8px 10px;
+		padding: 10px 12px;
 		font-size: 0.95rem;
+	}
+}
+
+/* Mobile burger menu */
+@media (max-width:640px) {
+	.menu-toggle {
+		display: block;
+	}
+	
+	header#voterHeader nav {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		background: linear-gradient(180deg, #0a3, #036);
+		border-radius: 8px;
+		margin-top: 8px;
+		box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.3s ease;
+		z-index: 999;
+		min-width: 200px;
+	}
+	
+	header#voterHeader nav.active {
+		max-height: 500px;
+		padding: 10px;
+	}
+	
+	header#voterHeader #MenuBar1,
+	header#voterHeader #cssmenu > ul {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+		width: 100%;
+	}
+	
+	header#voterHeader #MenuBar1 li,
+	header#voterHeader #cssmenu > ul > li {
+		width: 100%;
+	}
+	
+	header#voterHeader #MenuBar1 li a,
+	header#voterHeader #cssmenu > ul > li > a {
+		display: block;
+		width: 100%;
+		padding: 12px 16px;
+		border-radius: 4px;
+		margin-bottom: 2px;
+	}
+	
+	header#voterHeader .welcome {
+		font-size: 0.95rem;
+	}
+}
+
+@media (max-width:480px) {
+	header#voterHeader {
+		padding: 10px 12px;
+		width: calc(100% - 20px);
+	}
+	
+	header#voterHeader .welcome {
+		font-size: 0.9rem;
+	}
+	
+	header#voterHeader #MenuBar1,
+	header#voterHeader #cssmenu > ul {
+		gap: 0;
+	}
+	header#voterHeader #MenuBar1 li a,
+	header#voterHeader #cssmenu > ul > li > a {
+		padding: 10px 14px;
+		font-size: 0.9rem;
 	}
 }
 
@@ -631,10 +734,20 @@ a:visited, a:active { text-decoration: none; }
 #UpdateLoginDetails input[type="text"]:focus,
 #UpdateLoginDetails input[type="password"]:focus{ outline:none; border-color:#4CAF50 !important; box-shadow:0 0 0 2px rgba(76,175,80,0.2); }
 .form-actions{ text-align:left; padding-top:12px; }
-#UpdateLoginDetails input[type="submit"]{ background:#4CAF50 !important; color:#fff !important; border:none; padding:10px 20px !important; font-size:15px !important; font-weight:600; border-radius:5px; cursor:pointer; transition:background 0.3s ease; }
+#UpdateLoginDetails input[type="submit"]{ background:#4CAF50 !important; color:#fff !important; border:none; padding:10px 20px !important; font-size:15px !important; font-weight:600; border-radius:5px; cursor:pointer; transition:background 0.3s ease; display:inline-block; }
 #UpdateLoginDetails input[type="submit"]:hover{ background:#45a049 !important; }
-#UpdateLoginDetails input[type="reset"]{ background:#f44336 !important; color:#fff !important; border:none; padding:10px 20px !important; font-size:15px !important; font-weight:600; border-radius:5px; cursor:pointer; margin-left:12px; transition:background 0.3s ease; }
+#UpdateLoginDetails input[type="reset"]{ background:#f44336 !important; color:#fff !important; border:none; padding:10px 20px !important; font-size:15px !important; font-weight:600; border-radius:5px; cursor:pointer; margin-left:12px; transition:background 0.3s ease; display:inline-block; }
 #UpdateLoginDetails input[type="reset"]:hover{ background:#da190b !important; }
+
+@media (max-width: 520px) {
+	#UpdateLoginDetails input[type="submit"],
+	#UpdateLoginDetails input[type="reset"] {
+		display: block !important;
+		width: 100% !important;
+		margin-left: 0 !important;
+		margin-bottom: 10px !important;
+	}
+}
 @media (max-width:640px){ .form-row{ flex-direction:column; align-items:flex-start; } .form-row label{ width:auto; } }
 
 /* Container and Admin login: responsive, auto-height (expand with content) */
@@ -652,6 +765,13 @@ a:visited, a:active { text-decoration: none; }
 	position: relative;
 	height: auto !important; /* ensure container grows with content */
 	overflow: visible; /* allow children to expand */
+}
+
+@media (max-width: 768px) {
+	#Container { width: 98%; padding: 0 8px; margin: 1rem auto 2rem auto; }
+}
+@media (max-width: 480px) {
+	#Container { width: 100%; padding: 0 6px; margin: 0.8rem auto 1.5rem auto; }
 }
 
 /* Make sure the container clears floats and contains children (so background shows under cards) */
@@ -678,12 +798,23 @@ a:visited, a:active { text-decoration: none; }
 	height: auto !important;
 }
 
+/* Ensure child elements don't overflow */
+#Adminlogin > * { max-width: 100%; box-sizing: border-box; }
+
 /* Text color for main content area */
 #Adminlogin main{ color:#fff; }
 #Adminlogin main p{ color:#fff; font-size:16px; margin:12px 0; }
 
+@media (max-width: 768px){
+	#Adminlogin{ padding: 1rem 0.8rem; margin: 1rem auto; }
+	#Adminlogin h1 { font-size: 1.5rem; }
+	#Adminlogin main p { font-size: 15px; }
+}
+
 @media (max-width: 480px){
-	#Adminlogin{ margin-top: 0.6rem; padding-top: 0.4rem; }
+	#Adminlogin{ margin: 0.6rem auto; padding: 0.8rem 0.6rem; }
+	#Adminlogin h1 { font-size: 1.3rem; }
+	#Adminlogin main p { font-size: 14px; }
 }
 
 /* Results card grid */
@@ -696,6 +827,17 @@ a:visited, a:active { text-decoration: none; }
     max-width: 720px;
     padding: 6px;
     box-sizing: border-box;
+}
+
+@media (max-width: 720px) {
+	.results-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; padding: 4px; }
+}
+
+@media (max-width: 480px) {
+	.results-grid { grid-template-columns: 1fr; gap: 10px; padding: 2px; }
+	.result-card { padding: 10px; }
+	.result-body h3 { font-size: 1rem; }
+	.result-votes { font-size: 1rem; }
 }
 .result-card{
 	background: #fff;
@@ -761,9 +903,21 @@ a:visited, a:active { text-decoration: none; }
 .tile{ background:#fff; padding:12px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.08); text-align:center; }
 .tile img{ max-width:100%; height:auto; display:block; margin:0 auto 8px; }
 
-/* VoterIndex specific: display tiles in a single row */
-.index-tiles{ display:flex; flex-wrap:nowrap; max-width:100%; gap:12px; justify-content:center; overflow-x:auto; }
-.index-tiles .tile{ padding:10px; flex:1; min-width:120px; max-width:180px; }
+/* VoterIndex specific: allow tiles to wrap on small screens */
+.index-tiles{ display:flex; flex-wrap:wrap; max-width:100%; gap:12px; justify-content:center; overflow-x:visible; }
+.index-tiles .tile{ padding:10px; flex:1 1 120px; min-width:110px; max-width:180px; }
+
+@media (max-width: 640px) {
+	.index-tiles { gap: 10px; }
+	.index-tiles .tile { flex: 1 1 100px; min-width: 100px; max-width: 140px; padding: 8px; }
+	.index-tiles .tile img { max-width: 70px; }
+	.index-tiles .tile h4 { font-size: 0.9rem; }
+}
+
+@media (max-width: 420px) {
+	.index-tiles { gap: 8px; }
+	.index-tiles .tile { flex: 1 1 calc(50% - 4px); min-width: calc(50% - 4px); max-width: calc(50% - 4px); }
+}
 
 
 /* ===== NEW VOTING FLOW STYLES ===== */
@@ -888,6 +1042,17 @@ a:visited, a:active { text-decoration: none; }
 	border-radius: 20px;
 	font-size: 0.9rem;
 	font-weight: 600;
+}
+
+@media (max-width: 520px) {
+	.tile.position-card h4 { font-size: 1rem; margin: 0 0 10px 0; }
+	.tile.position-card .select-position-btn { padding: 8px 16px; font-size: 0.9rem; }
+	.tile.position-card .voted-badge { padding: 5px 12px; font-size: 0.85rem; }
+}
+
+@media (max-width: 380px) {
+	.tile.position-card h4 { font-size: 0.95rem; }
+	.tile.position-card .select-position-btn { padding: 7px 14px; font-size: 0.85rem; }
 }
 
 /* Position modal with candidates */
